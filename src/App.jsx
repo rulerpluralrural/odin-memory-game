@@ -55,7 +55,7 @@ export default function App() {
 			source: "./src/assets/characters/robo.jpg",
 		},
 	]);
-	const [toggleMusic, setToggleMusic] = useState(true);
+	const [toggleMusic, setToggleMusic] = useState(false);
 	const [toggleSounds, setToggleSounds] = useState(true);
 
 	return (

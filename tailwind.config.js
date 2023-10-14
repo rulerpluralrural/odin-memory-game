@@ -2,6 +2,9 @@
 export default {
   content: ["./src/**/*.{html,js,jsx}"],
   theme: {
+    fontFamily: {
+      'press-start': ['"Press Start 2P"', 'system-ui']
+    },
     extend: {
       keyframes: {
         slideLeft: {
