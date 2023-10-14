@@ -15,18 +15,17 @@ const arrowRight =
 const indicator =
 	"hover:before:h-0 hover:before:w-0 hover:before:border-x-8 before:border-x-transparent before:border-b-[16px] before:border-b-green-200 before:absolute before:rotate-[90deg] before:top-[2px] before:left-[-25px] before:animate-pulse";
 
-/**@param {{gameStart: boolean, setGameStart: function, toggleMusic: boolean, toggleSounds: boolean}} props*/
+/**@param {{gameStart: boolean, setGameStart: function, toggleMusic: boolean, toggleSounds: boolean, chooseMode: string, setChooseMode: function}} props*/
 export default function MainMenu(props) {
 	const pickSoundRef = useRef(null);
 	const menuMusicRef = useRef(null);
 	const gameStartSoundRef = useRef(null);
-	const [activeButton, setActiveButton] = useState("");
 
-	const toggleActiveButton = (e) => {
+	const togglePickMode = (e) => {
 		if (!pickSoundRef) return;
 		pickSoundRef.current.currentTime = 0;
 		pickSoundRef.current.play();
-		setActiveButton(e.target.value);
+		props.setChooseMode(e.target.value);
 	};
 
 	const toggleGameStart = () => {
@@ -71,40 +70,38 @@ export default function MainMenu(props) {
 		<div className="flex flex-col items-center justify-center h-full text-white text-center font-serif  font-press-start">
 			<div className="border-8 border-double border-green-400  w-[500px] h-64">
 				<div className=" backdrop-blur-sm h-full w-full rounded-sm flex flex-col justify-around p-5">
-					<h1 className="text-[1.2rem] tracking-wider">
-						Choose Difficulty
-					</h1>
+					<h1 className="text-[1.2rem] tracking-wider">Choose Difficulty</h1>
 					<div className="flex justify-around">
 						<button
 							value="easy"
 							className={`${buttonStyle} ${
-								activeButton === "easy" && "text-green-300"
+								props.chooseMode === "easy" && "text-green-300"
 							}`}
-							onClick={toggleActiveButton}
+							onClick={togglePickMode}
 						>
-							{activeButton === "easy" && (
+							{props.chooseMode === "easy" && (
 								<FontAwesomeIcon icon={faChevronLeft} className={arrowLeft} />
 							)}
 							Easy
-							{activeButton === "easy" && (
+							{props.chooseMode === "easy" && (
 								<FontAwesomeIcon icon={faChevronRight} className={arrowRight} />
 							)}
 						</button>
 						<button
 							value="medium"
 							className={`${buttonStyle} ${
-								activeButton === "medium" && "text-green-300"
+								props.chooseMode === "medium" && "text-green-300"
 							}`}
-							onClick={toggleActiveButton}
+							onClick={togglePickMode}
 						>
-							{activeButton === "medium" && (
+							{props.chooseMode === "medium" && (
 								<FontAwesomeIcon
 									icon={faChevronLeft}
 									className="animate-slideLeft text-sm"
 								/>
 							)}
 							Medium
-							{activeButton === "medium" && (
+							{props.chooseMode === "medium" && (
 								<FontAwesomeIcon
 									icon={faChevronRight}
 									className="animate-slideRight text-sm"
@@ -114,18 +111,18 @@ export default function MainMenu(props) {
 						<button
 							value="hard"
 							className={`${buttonStyle} ${
-								activeButton === "hard" && "text-green-300"
+								props.chooseMode === "hard" && "text-green-300"
 							}`}
-							onClick={toggleActiveButton}
+							onClick={togglePickMode}
 						>
-							{activeButton === "hard" && (
+							{props.chooseMode === "hard" && (
 								<FontAwesomeIcon
 									icon={faChevronLeft}
 									className="animate-slideLeft text-sm"
 								/>
 							)}
 							Hard
-							{activeButton === "hard" && (
+							{props.chooseMode === "hard" && (
 								<FontAwesomeIcon
 									icon={faChevronRight}
 									className="animate-slideRight text-sm"
@@ -171,4 +168,6 @@ MainMenu.propTypes = {
 	setGameStart: PropTypes.func,
 	toggleSounds: PropTypes.bool,
 	toggleMusic: PropTypes.bool,
+	chooseMode: PropTypes.string,
+	setChooseMode: PropTypes.func
 };

@@ -35,7 +35,7 @@ export default function Header(props) {
 
 	const toggleHelp = () => {
 		soundRef.current.currentTime = 0;
-		soundRef.current.play();
+		soundRef.current.play()
 		setHelp(!help)
 	}
 	return (
