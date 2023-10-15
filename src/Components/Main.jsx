@@ -74,7 +74,6 @@ export default function Main({
 					handleScore={handleScore}
 					shuffle={shuffle}
 					setGameOver={setGameOver}
-					pickSound={pickSound}
 					notifStartSound={notifStartSound}
 					notifEndSound={notifEndSound}
 					menuMusicRef={menuMusicRef}

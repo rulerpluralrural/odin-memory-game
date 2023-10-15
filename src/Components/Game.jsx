@@ -1,9 +1,8 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useEffect, useRef } from "react";
-import PropTypes from "prop-types";
+import React, { useEffect, useRef, useState } from "react";
 import Card from "./Cards";
 
-/**@param {{gameStart: boolean, toggleMusic: boolean, gameMode: Array, setGameMode: function, handleScore: function, shuffle: function, setGameOver: function}} props*/
+/**@param {{gameStart: boolean, toggleMusic: boolean, gameMode: Array, setGameMode: function, handleScore: function, shuffle: function, setGameOver: function, notifStartSound: function, notifEndSound: function, menuMusicRef: any}} props*/
 export default function Game({
 	gameStart,
 	toggleMusic,
@@ -12,9 +11,12 @@ export default function Game({
 	handleScore,
 	shuffle,
 	setGameOver,
+	notifStartSound,
+	notifEndSound,
+	menuMusicRef
 }) {
 	const inGameMusicRef = useRef(null);
-	const soundRef = useRef(null);
+	const [flip, setFlip] = useState(false)
 
 	const toggleCard = (index) => {
 		return () => {
@@ -22,12 +24,15 @@ export default function Game({
 				setGameOver(true);
 				return;
 			}
-			gameMode[index].clicked = true;
-			handleScore()
+			setFlip(true)
+			gameMode[index].clicked = true;	
 			setGameMode([...gameMode]);
-			shuffle();
-			soundRef.current.currentTime = 0;
-			soundRef.current.play();
+			handleScore()
+			setTimeout(shuffle, 500)
+			setTimeout(() => {
+				setFlip(false)
+			}, 1000)
+			notifStartSound()
 		};
 	};
 
@@ -42,10 +47,10 @@ export default function Game({
 			inGameMusicRef.current.pause();
 		}
 	}, [gameStart, toggleMusic]);
-	console.log(gameMode);
+
 	return (
 		<div>
-			<div className="flex justify-center items-center gap-5">
+			<div className="cardBox flex justify-center items-center gap-5">
 				{gameMode.map((item, index) => {
 					return (
 						<Card
@@ -54,6 +59,7 @@ export default function Game({
 							name={item.name}
 							source={item.source}
 							toggleCard={toggleCard(index)}
+							flip={flip}
 						/>
 					);
 				})}
@@ -63,17 +69,7 @@ export default function Game({
 				src="./src/assets/audio/peaceful-days.mp3"
 				loop
 			></audio>
-			<audio ref={soundRef} src="./src/assets/audio/sweep-sound.wav"></audio>
 		</div>
 	);
 }
 
-Game.propTypes = {
-	gameStart: PropTypes.bool,
-	toggleMusic: PropTypes.bool,
-	gameMode: PropTypes.array,
-	setGameMode: PropTypes.func,
-	handleScore: PropTypes.func,
-	shuffle: PropTypes.func,
-	setGameOver:PropTypes.func
-};

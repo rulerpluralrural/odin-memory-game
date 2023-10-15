@@ -42,7 +42,7 @@ export default function Header({
 				<FontAwesomeIcon
 					icon={faVolumeHigh}
 					className={`${iconStyle} ${
-						!toggleSounds ? "bg-red-600" : "bg-white"
+						!toggleSounds ? "bg-red-600" : "bg-green-400"
 					} aspect-[1/1] hover:bg-red-600`}
 					onClick={handleSounds}
 				/>
@@ -55,7 +55,7 @@ export default function Header({
 				<FontAwesomeIcon
 					icon={faMusic}
 					className={`${iconStyle} ${
-						!toggleMusic ? "bg-red-600" : "bg-white"
+						!toggleMusic ? "bg-red-600" : "bg-green-400"
 					} hover:bg-red-600`}
 					onClick={handleMusic}
 				/>
@@ -69,8 +69,8 @@ export default function Header({
 			<div className="self-start flex flex-col font-press-start font-bold">
 				<FontAwesomeIcon
 					icon={faCircleQuestion}
-					className={`cursor-pointer transition-transform text-4xl duration-200 border-[1px] border-slate-800 rounded-full hover:scale-110 hover:text-red-400 hover:border-0 text-white w-[37px] self-end ${
-						help && "text-red-400"
+					className={`cursor-pointer transition-transform text-4xl duration-200 border-[1px] border-slate-800 rounded-full hover:scale-110 hover:text-red-600 hover:border-0  w-[37px] self-end ${
+						help ? "text-red-600" : "text-green-400"
 					}`}
 					onClick={toggleHelp}
 				/>
