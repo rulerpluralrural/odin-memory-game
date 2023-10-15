@@ -1,12 +1,54 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MainMenu from "./MainMenu";
-import PropTypes from "prop-types";
 import Game from "./Game";
+import GameOverMenu from "./GameOverMenu";
 
-/**@param {{toggleMusic: boolean, toggleSounds: boolean, gameMode: array, setGameMode: function, chooseMode:string, setChooseMode:function}} props*/
-export default function Main(props) {
+/**@param {{toggleMusic: boolean, toggleSounds: boolean, gameMode: array, setGameMode: function, chooseMode:string, setChooseMode:function, handleScore: function, shuffle: function, pickSound: function, notifStartSound: function, notifEndSound: function, menuMusicRef: any, inGameMusicRef: any}} props*/
+export default function Main({
+	toggleMusic,
+	toggleSounds,
+	gameMode,
+	setGameMode,
+	chooseMode,
+	setChooseMode,
+	handleScore,
+	shuffle,
+	pickSound,
+	notifStartSound,
+	notifEndSound,
+	menuMusicRef,
+	inGameMusicRef,
+}) {
 	const [gameStart, setGameStart] = useState(false);
+	const [gameOver, setGameOver] = useState(true);
+
+	const toggleGameStart = () => {
+		if (chooseMode === "") return;
+		notifStartSound();
+		setGameStart(true);
+		setGameOver(false);
+	};
+
+	useEffect(() => {
+		if (!menuMusicRef) return;
+		if (!gameStart && toggleMusic) {
+			menuMusicRef.current.currentTime = 0;
+			menuMusicRef.current.volume = 0.5;
+			menuMusicRef.current.play();
+		} else {
+			menuMusicRef.current.pause();
+		}
+
+		if (!inGameMusicRef) return;
+		if (gameStart && toggleMusic) {
+			inGameMusicRef.current.currentTime = 0;
+			inGameMusicRef.current.volume = 0.5;
+			inGameMusicRef.current.play()
+		} else {
+			inGameMusicRef.current.pause();
+		}
+	}, [gameStart, toggleMusic, menuMusicRef, inGameMusicRef]);
 
 	return (
 		<div className="flex items-center justify-center">
@@ -14,30 +56,33 @@ export default function Main(props) {
 				<MainMenu
 					gameStart={gameStart}
 					setGameStart={setGameStart}
-					toggleMusic={props.toggleMusic}
-					toggleSounds={props.toggleSounds}
-					chooseMode={props.chooseMode}
-					setChooseMode={props.setChooseMode}
+					toggleMusic={toggleMusic}
+					toggleSounds={toggleSounds}
+					chooseMode={chooseMode}
+					setChooseMode={setChooseMode}
+					setGameOver={setGameOver}
+					pickSound={pickSound}
+					notifStartSound={notifStartSound}
+					toggleGameStart={toggleGameStart}
 				/>
-			) : (
+			) : gameStart && !gameOver ? (
 				<Game
 					gameStart={gameStart}
-					setGameStart={setGameStart}
-					toggleMusic={props.toggleMusic}
-					toggleSounds={props.toggleSounds}
-					gameMode={props.gameMode}
-					setGameMode={props.setGameMode}
+					toggleMusic={toggleMusic}
+					gameMode={gameMode}
+					setGameMode={setGameMode}
+					handleScore={handleScore}
+					shuffle={shuffle}
+					setGameOver={setGameOver}
+					pickSound={pickSound}
+					notifStartSound={notifStartSound}
+					notifEndSound={notifEndSound}
+					menuMusicRef={menuMusicRef}
+					inGameMusicRef={inGameMusicRef}
 				/>
+			) : (
+				<GameOverMenu />
 			)}
 		</div>
 	);
 }
-
-Main.propTypes = {
-	toggleSounds: PropTypes.bool,
-	toggleMusic: PropTypes.bool,
-	gameMode: PropTypes.array,
-	setGameMode: PropTypes.func,
-	chooseMode: PropTypes.string,
-	setChooseMode: PropTypes.func
-};

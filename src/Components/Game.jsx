@@ -3,34 +3,57 @@ import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import Card from "./Cards";
 
-/**@param {{gameStart: boolean, setGameStart: function, toggleMusic: boolean, toggleSounds: boolean, gameMode: Array, setGameMode: function}} props*/
-export default function Game(props) {
+/**@param {{gameStart: boolean, toggleMusic: boolean, gameMode: Array, setGameMode: function, handleScore: function, shuffle: function, setGameOver: function}} props*/
+export default function Game({
+	gameStart,
+	toggleMusic,
+	gameMode,
+	setGameMode,
+	handleScore,
+	shuffle,
+	setGameOver,
+}) {
 	const inGameMusicRef = useRef(null);
-	const soundRef = useRef(null)
+	const soundRef = useRef(null);
+
+	const toggleCard = (index) => {
+		return () => {
+			if (gameMode[index].clicked === true) {
+				setGameOver(true);
+				return;
+			}
+			gameMode[index].clicked = true;
+			handleScore()
+			setGameMode([...gameMode]);
+			shuffle();
+			soundRef.current.currentTime = 0;
+			soundRef.current.play();
+		};
+	};
 
 	useEffect(() => {
 		if (!inGameMusicRef) return;
 
-		if (props.gameStart && props.toggleMusic) {
+		if (gameStart && toggleMusic) {
 			inGameMusicRef.current.volume = 0.7;
 			inGameMusicRef.current.play();
 		} else {
 			inGameMusicRef.current.currentTime = 0;
 			inGameMusicRef.current.pause();
 		}
-	}, [props.gameStart, props.toggleMusic]);
-
+	}, [gameStart, toggleMusic]);
+	console.log(gameMode);
 	return (
 		<div>
 			<div className="flex justify-center items-center gap-5">
-				{props.gameMode.map((item, index) => {
+				{gameMode.map((item, index) => {
 					return (
 						<Card
 							key={index}
 							index={index}
 							name={item.name}
 							source={item.source}
-							soundRef={soundRef}
+							toggleCard={toggleCard(index)}
 						/>
 					);
 				})}
@@ -47,9 +70,10 @@ export default function Game(props) {
 
 Game.propTypes = {
 	gameStart: PropTypes.bool,
-	setGameStart: PropTypes.func,
 	toggleMusic: PropTypes.bool,
-	toggleSounds: PropTypes.bool,
 	gameMode: PropTypes.array,
 	setGameMode: PropTypes.func,
+	handleScore: PropTypes.func,
+	shuffle: PropTypes.func,
+	setGameOver:PropTypes.func
 };
