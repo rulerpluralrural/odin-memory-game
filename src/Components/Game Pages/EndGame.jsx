@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from "react";
 import GameOver from "../EndGame Pages/GameOver";
 import GameWon from "../EndGame Pages/GameWon";
 
-/**@param {{gameOver: boolean, toggleSounds: boolean, toggleMusic:boolean, pickSound: function, notifStartSound: function, gameWon: boolean, gameOverMusicRef: any, gameWonMusicRef: any, gameStart: boolean}} props*/
+/**@param {{gameOver: boolean, toggleSounds: boolean, toggleMusic:boolean, pickSound: function, notifStartSound: function, gameWon: boolean, gameOverMusicRef: any, gameWonMusicRef: any, gameStart: boolean, restartApp: function}} props*/
 export default function EndGame({
 	gameOver,
 	toggleSounds,
@@ -13,6 +13,7 @@ export default function EndGame({
 	gameWon,
     gameOverMusicRef,
     gameWonMusicRef,
+	restartApp
 }) {
 
 	const handlePickSound = () => {
@@ -46,11 +47,13 @@ export default function EndGame({
 				<GameOver
 					handlePickSound={handlePickSound}
 					handleSelectSound={handleSelectSound}
+					restartApp={restartApp}
 				/>
 			) : (
 				<GameWon
 					handlePickSound={handlePickSound}
 					handleSelectSound={handleSelectSound}
+					restartApp={restartApp}
 				/>
 			)}
 		</>

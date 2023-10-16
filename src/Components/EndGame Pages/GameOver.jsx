@@ -1,18 +1,24 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
 
-const buttonStyle = "hover:animate-pulse focus:animate-pulse hover:border-b-2 focus:border-b-2 border-white border-dashed outline-none"
+const buttonStyle =
+	"hover:animate-pulse focus:animate-pulse hover:border-b-2 focus:border-b-2 border-white border-dashed outline-none";
 
-export default function GameOver({ handlePickSound, handleSelectSound }) {
-
+/**@param {{handlePickSound: function, handleSelectSound: function, restartApp: function}} props */
+export default function GameOver({
+	handlePickSound,
+	handleSelectSound,
+	restartApp,
+}) {
 	const handleYesButton = () => {
-		handleSelectSound()
-	}
+		handleSelectSound();
+		restartApp();
+	};
 
 	const handleNoButton = () => {
 		handleSelectSound();
 		window.location.assign("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
-	}
+	};
 
 	return (
 		<div

@@ -55,6 +55,7 @@ export default function App() {
 		setGameOver(true)
 		setGameWon(false)
 		setGameStart(false)
+		setScore(0)
 		gameOverMusicRef.current.pause()
 		gameWonMusicRef.current.pause()
 	}

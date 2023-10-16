@@ -10,6 +10,7 @@ export default function Footer({
 	toggleSounds,
 	gameStart,
 }) {
+	
 	const restartGame = () => {
 		if (!gameStart) return;
 		if (toggleSounds) notifStartSound();

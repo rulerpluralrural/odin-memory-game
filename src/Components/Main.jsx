@@ -4,7 +4,7 @@ import MainMenu from "./Game Pages/MainMenu";
 import Game from "./Game Pages/Game";
 import EndGame from "./Game Pages/EndGame";
 
-/**@param {{toggleMusic: boolean, toggleSounds: boolean, gameMode: array, setGameMode: function, chooseMode:string, setChooseMode:function, handleScore: function, shuffle: function, pickSound: function, notifStartSound: function, notifEndSound: function, menuMusicRef: any, inGameMusicRef: any, gameWonMusicRef: any, gameOverMusicRef: any, gameStart: boolean, setGameStart: function, gameOver: boolean, setGameOver: function, gameWon: boolean, setGameWon: function}} props*/
+/**@param {{toggleMusic: boolean, toggleSounds: boolean, gameMode: array, setGameMode: function, chooseMode:string, setChooseMode:function, handleScore: function, shuffle: function, pickSound: function, notifStartSound: function, notifEndSound: function, menuMusicRef: any, inGameMusicRef: any, gameWonMusicRef: any, gameOverMusicRef: any, gameStart: boolean, setGameStart: function, gameOver: boolean, setGameOver: function, gameWon: boolean, setGameWon: function, restartApp: function}} props*/
 export default function Main({
 	toggleMusic,
 	toggleSounds,
@@ -26,7 +26,8 @@ export default function Main({
 	gameOver,
 	setGameOver,
 	gameWon,
-	setGameWon
+	setGameWon,
+	restartApp
 }) {
 	const checkCards = gameMode.every((card) => card.clicked === true);
 
@@ -97,6 +98,7 @@ export default function Main({
 					gameWonMusicRef={gameWonMusicRef}
 					gameOverMusicRef={gameOverMusicRef}
 					gameStart={gameStart}
+					restartApp={restartApp}
 				/>
 			)}
 		</div>
