@@ -5,7 +5,6 @@ import {
 	faChevronLeft,
 	faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-import PropTypes from "prop-types";
 
 const buttonStyle =
 	"text-[1rem] font-bold font-mono flex justify-center items-center gap-1 transition-colors";
@@ -128,13 +127,3 @@ export default function MainMenu({
 		</div>
 	);
 }
-
-MainMenu.propTypes = {
-	gameStart: PropTypes.bool,
-	setGameStart: PropTypes.func,
-	toggleSounds: PropTypes.bool,
-	toggleMusic: PropTypes.bool,
-	chooseMode: PropTypes.string,
-	setChooseMode: PropTypes.func,
-	setGameOver: PropTypes.func,
-};

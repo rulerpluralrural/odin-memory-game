@@ -1,8 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useRef, useState } from "react";
-import Card from "./Cards";
+import Card from "../Game Pages/Cards";
 
-/**@param {{gameMode: Array, setGameMode: function, handleScore: function, shuffle: function, setGameOver: function, notifStartSound: function, notifEndSound: function, toggleSounds: boolean,setGameWon: function}} props*/
+/**@param {{gameMode: Array, setGameMode: function, handleScore: function, shuffle: function, setGameOver: function, notifStartSound: function, notifEndSound: function, toggleSounds: boolean,setGameWon: function, chooseMode: string}} props*/
 export default function Game({
 	gameMode,
 	setGameMode,
@@ -13,6 +13,7 @@ export default function Game({
 	notifEndSound,
 	toggleSounds,
 	setGameWon,
+	chooseMode
 }) {
 	const [flip, setFlip] = useState(false);
 
@@ -39,8 +40,7 @@ export default function Game({
 
 	return (
 		<div
-			className="flex justify-center items-center gap-5 animate-fadeIn"
-			
+			className={`grid ${chooseMode === "easy" ? "grid-cols-4" : chooseMode === "medium" ? "grid-cols-5" : 'grid-cols-8'} gap-5 animate-fadeIn`}	
 		>
 			{gameMode.map((item, index) => {
 				return (
@@ -51,6 +51,7 @@ export default function Game({
 						source={item.source}
 						toggleCard={toggleCard(index)}
 						flip={flip}
+						chooseMode={chooseMode}
 					/>
 				);
 			})}

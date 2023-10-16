@@ -1,8 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
-import MainMenu from "./MainMenu";
-import Game from "./Game";
-import EndGame from "./EndGame";
+import MainMenu from "./Game Pages/MainMenu";
+import Game from "./Game Pages/Game";
+import EndGame from "./Game Pages/EndGame";
 
 /**@param {{toggleMusic: boolean, toggleSounds: boolean, gameMode: array, setGameMode: function, chooseMode:string, setChooseMode:function, handleScore: function, shuffle: function, pickSound: function, notifStartSound: function, notifEndSound: function, menuMusicRef: any, inGameMusicRef: any, gameWonMusicRef: any, gameOverMusicRef: any, gameStart: boolean, setGameStart: function, gameOver: boolean, setGameOver: function, gameWon: boolean, setGameWon: function}} props*/
 export default function Main({
@@ -43,6 +43,7 @@ export default function Main({
 			menuMusicRef.current.volume = 0.5;
 			menuMusicRef.current.play();
 		} else if (gameStart || !toggleMusic) {
+			menuMusicRef.current.currentTime = 0
 			menuMusicRef.current.pause();
 		}
 
@@ -51,6 +52,7 @@ export default function Main({
 			inGameMusicRef.current.volume = 0.5;
 			inGameMusicRef.current.play();
 		} else if (!gameStart || !toggleMusic || gameOver){
+			inGameMusicRef.current.currentTime = 0
 			inGameMusicRef.current.pause();
 		}
 
@@ -64,8 +66,6 @@ export default function Main({
 		<div className="flex items-center justify-center animate-scale">
 			{!gameStart ? (
 				<MainMenu
-					gameStart={gameStart}
-					toggleMusic={toggleMusic}
 					toggleSounds={toggleSounds}
 					chooseMode={chooseMode}
 					setChooseMode={setChooseMode}
@@ -84,6 +84,7 @@ export default function Main({
 					notifEndSound={notifEndSound}
 					toggleSounds={toggleSounds}
 					setGameWon={setGameWon}
+					chooseMode={chooseMode}
 				/>
 			) : (
 				<EndGame
@@ -91,9 +92,11 @@ export default function Main({
 					toggleSounds={toggleSounds}
 					toggleMusic={toggleMusic}
 					pickSound={pickSound}
+					notifStartSound={notifStartSound}
 					gameWon={gameWon}
 					gameWonMusicRef={gameWonMusicRef}
 					gameOverMusicRef={gameOverMusicRef}
+					gameStart={gameStart}
 				/>
 			)}
 		</div>

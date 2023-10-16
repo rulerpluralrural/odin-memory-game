@@ -42,12 +42,22 @@ export default function App() {
 
 	const notifEndSound = () => {
 		if (toggleSounds) {
-			const audio = new Audio("./src/assets/audio/lose-sound.wav");
+			const audio = new Audio("./src/assets/audio/lose-sound.mp3");
 			audio.currentTime = 0;
 			audio.volume = 0.7;
 			audio.play();
 		}
 	};
+
+	const restartApp = () => {
+		setChooseMode("")
+		setGameMode([])
+		setGameOver(true)
+		setGameWon(false)
+		setGameStart(false)
+		gameOverMusicRef.current.pause()
+		gameWonMusicRef.current.pause()
+	}
 
 	const handleScore = () => {
 		setScore(score + 1);
@@ -90,60 +100,144 @@ export default function App() {
 				{
 					name: "Chrono",
 					source: "./src/assets/characters/chrono.jpg",
+					clicked: false,
 				},
 				{
 					name: "Marle",
 					source: "./src/assets/characters/marle.webp",
+					clicked: false,
 				},
 				{
 					name: "Lucca",
 					source: "./src/assets/characters/lucca.webp",
+					clicked: false,
 				},
 				{
 					name: "Frog",
 					source: "./src/assets/characters/frog.jpg",
+					clicked: false,
 				},
 				{
-					name: "Chrono",
-					source: "./src/assets/characters/chrono.jpg",
+					name: "Ayla",
+					source: "./src/assets/characters/ayla.jpg",
+					clicked: false,
 				},
 				{
-					name: "Marle",
-					source: "./src/assets/characters/marle.webp",
+					name: "Magus",
+					source: "./src/assets/characters/magus.webp",
+					clicked: false,
 				},
 				{
-					name: "Lucca",
-					source: "./src/assets/characters/lucca.webp",
+					name: "Robo",
+					source: "./src/assets/characters/robo.jpg",
+					clicked: false,
 				},
 				{
-					name: "Frog",
-					source: "./src/assets/characters/frog.jpg",
+					name: "Schala",
+					source: "./src/assets/characters/schala.jpg",
+					clicked: false,
+				},
+				{
+					name: "Ozzie",
+					source: "./src/assets/characters/ozzie.jpg",
+					clicked: false,
+				},
+				{
+					name: "Kino",
+					source: "./src/assets/characters/kino.jpg",
+					clicked: false,
 				},
 			]);
-		} else {
-			[
+		} else if (chooseMode === "hard") {
+			setGameMode([
 				{
 					name: "Chrono",
 					source: "./src/assets/characters/chrono.jpg",
+					clicked: false,
 				},
 				{
 					name: "Marle",
 					source: "./src/assets/characters/marle.webp",
+					clicked: false,
 				},
 				{
 					name: "Lucca",
 					source: "./src/assets/characters/lucca.webp",
+					clicked: false,
 				},
 				{
 					name: "Frog",
 					source: "./src/assets/characters/frog.jpg",
+					clicked: false,
 				},
-			];
+				{
+					name: "Ayla",
+					source: "./src/assets/characters/ayla.jpg",
+					clicked: false,
+				},
+				{
+					name: "Magus",
+					source: "./src/assets/characters/magus.webp",
+					clicked: false,
+				},
+				{
+					name: "Robo",
+					source: "./src/assets/characters/robo.jpg",
+					clicked: false,
+				},
+				{
+					name: "Schala",
+					source: "./src/assets/characters/schala.jpg",
+					clicked: false,
+				},
+				{
+					name: "Ozzie",
+					source: "./src/assets/characters/ozzie.jpg",
+					clicked: false,
+				},
+				{
+					name: "Kino",
+					source: "./src/assets/characters/kino.jpg",
+					clicked: false,
+				},
+				{
+					name: "Azala",
+					source: "./src/assets/characters/azala.jpg",
+					clicked: false,
+				},
+				{
+					name: "Belthasar",
+					source: "./src/assets/characters/belthasar.jpg",
+					clicked: false,
+				},
+				{
+					name: "Dalton",
+					source: "./src/assets/characters/dalton.jpg",
+					clicked: false,
+				},
+				{
+					name: "Melchior",
+					source: "./src/assets/characters/melchior.jpg",
+					clicked: false,
+				},
+				{
+					name: "Tata",
+					source: "./src/assets/characters/tata.jpg",
+					clicked: false,
+				},
+				{
+					name: "Gaspar",
+					source: "./src/assets/characters/gaspar.jpg",
+					clicked: false,
+				},
+			]);
 		}
 	}, [chooseMode]);
 
 	return (
-		<div className="bg-[url('./src/assets/Chrono-bg.jpg')] w-full h-screen bg-cover bg-center">
+		<div
+			className={`bg-[url('./src/assets/Chrono-bg.jpg')] w-full h-screen bg-cover bg-center`}
+		>
 			<div className="w-full h-full backdrop-brightness-75 grid grid-rows-[80px_1fr_220px] grid-c">
 				<audio
 					ref={menuMusicRef}
@@ -194,16 +288,15 @@ export default function App() {
 					setGameOver={setGameOver}
 					gameWon={gameWon}
 					setGameWon={setGameWon}
+					restartApp={restartApp}
 				/>
 				<Footer
 					score={score}
 					bestScore={bestScore}
-					setChooseMode={setChooseMode}
-					setGameStart={setGameStart}
-					setGameWon={setGameWon}
-					setGameOver={setGameOver}
+					restartApp={restartApp}
 					toggleSounds={toggleSounds}
 					notifStartSound={notifStartSound}
+					gameStart={gameStart}
 				/>
 			</div>
 		</div>
