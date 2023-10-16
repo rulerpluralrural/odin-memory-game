@@ -14,7 +14,7 @@ export default function App() {
 	const gameOverMusicRef = useRef(null);
 	const gameWonMusicRef = useRef(null);
 	const [score, setScore] = useState(0);
-	const [bestScore, setBestScore] = useState(0);
+	const [bestScore, setBestScore] = useState(JSON.parse(localStorage.getItem('best-score')) || 0);
 
 	const pickSound = () => {
 		if (toggleSounds) {
@@ -45,8 +45,9 @@ export default function App() {
 
 	const handleScore = () => {
 		setScore(score + 1);
-		if (score > bestScore) {
-			setBestScore(score + 1);
+		if (score >= bestScore) {
+			setBestScore(bestScore + 1);
+			localStorage.setItem('best-score', JSON.stringify(bestScore + 1))
 		}
 	};
 

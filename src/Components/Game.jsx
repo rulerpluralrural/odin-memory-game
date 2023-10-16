@@ -13,44 +13,49 @@ export default function Game({
 	notifEndSound,
 	gameOver,
 	toggleSounds,
-	setGameWon
+	setGameWon,
 }) {
-	const [flip, setFlip] = useState(false)
+	const [flip, setFlip] = useState(false);
 
 	const toggleCard = (index) => {
 		return () => {
-			if (gameMode[index].clicked === true) {
-				if (toggleSounds) notifEndSound()
-				setGameWon(false)
+			const selectedCard = gameMode[index]
+			if (selectedCard.clicked) {
+				if (toggleSounds) notifEndSound();
+				setGameWon(false);
 				setGameOver(true);
+			} else if (!selectedCard.clicked) {
+				if (toggleSounds) notifStartSound();
+				handleScore();
+				setFlip(true);
+				selectedCard.clicked = true;
+				setGameMode([...gameMode]);
+				setTimeout(shuffle, 500);
+				setTimeout(() => {
+					setFlip(false);
+				}, 1000);
 			}
-			setFlip(true)
-			gameMode[index].clicked = true;	
-			setGameMode([...gameMode]);
-			handleScore()
-			setTimeout(shuffle, 500)
-			setTimeout(() => {
-				setFlip(false)
-			}, 1000)
-			notifStartSound()
 		};
 	};
 
 	return (
-			<div className={`flex justify-center items-center gap-5 ${gameOver && 'opacity-0 transition-opacity'}`}>
-				{gameMode.map((item, index) => {
-					return (
-						<Card
-							key={index}
-							index={index}
-							name={item.name}
-							source={item.source}
-							toggleCard={toggleCard(index)}
-							flip={flip}
-						/>
-					);
-				})}
-			</div>
+		<div
+			className={`flex justify-center items-center gap-5 ${
+				gameOver && "opacity-0 transition-opacity"
+			}`}
+		>
+			{gameMode.map((item, index) => {
+				return (
+					<Card
+						key={index}
+						index={index}
+						name={item.name}
+						source={item.source}
+						toggleCard={toggleCard(index)}
+						flip={flip}
+					/>
+				);
+			})}
+		</div>
 	);
 }
-
