@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Card from "./Cards";
 
-/**@param {{gameMode: Array, setGameMode: function, handleScore: function, shuffle: function, setGameOver: function, notifStartSound: function, notifEndSound: function, toggleSounds: boolean, gameOver: boolean,setGameWon: function}} props*/
+/**@param {{gameMode: Array, setGameMode: function, handleScore: function, shuffle: function, setGameOver: function, notifStartSound: function, notifEndSound: function, toggleSounds: boolean,setGameWon: function}} props*/
 export default function Game({
 	gameMode,
 	setGameMode,
@@ -11,7 +11,6 @@ export default function Game({
 	setGameOver,
 	notifStartSound,
 	notifEndSound,
-	gameOver,
 	toggleSounds,
 	setGameWon,
 }) {
@@ -40,9 +39,8 @@ export default function Game({
 
 	return (
 		<div
-			className={`flex justify-center items-center gap-5 ${
-				gameOver && "opacity-0 transition-opacity"
-			}`}
+			className="flex justify-center items-center gap-5 animate-fadeIn"
+			
 		>
 			{gameMode.map((item, index) => {
 				return (

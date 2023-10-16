@@ -20,24 +20,20 @@ export default function EndGame({
 
 	useEffect(() => {
 		if (gameOver && toggleMusic && !gameWon) {
-			gameOverMusicRef.current.currentTime = 0;
-			gameOverMusicRef.current.volume = 0.6;
+			gameOverMusicRef.current.volume = 0.5;
 			setTimeout(() => {
 				gameOverMusicRef.current.play();
 			}, 1500);
 		} else if (!gameOver || !toggleMusic || gameWon) {
-			gameOverMusicRef.current.volume = 0;
 			gameOverMusicRef.current.pause();
 		}
 
 		if (gameOver && toggleMusic && gameWon) {
-			gameWonMusicRef.current.currentTime = 0;
-			gameWonMusicRef.current.volume = 0.6;
+			gameWonMusicRef.current.volume = 0.5;
 			setTimeout(() => {
 				gameWonMusicRef.current.play();
 			}, 1500);
 		} else if (!gameOver || !toggleMusic || !gameWon) {
-			gameWonMusicRef.current.volume = 0;
 			gameWonMusicRef.current.pause();
 		}
 	}, [gameOver, toggleMusic, gameWon, gameOverMusicRef, gameWonMusicRef]);

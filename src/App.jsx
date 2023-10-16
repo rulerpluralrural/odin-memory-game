@@ -8,13 +8,19 @@ export default function App() {
 	const [gameMode, setGameMode] = useState([]);
 	const [chooseMode, setChooseMode] = useState("");
 	const [toggleSounds, setToggleSounds] = useState(true);
-	const [toggleMusic, setToggleMusic] = useState(false);
+	const [toggleMusic, setToggleMusic] = useState(true);
+	const [score, setScore] = useState(0);
+	const [gameStart, setGameStart] = useState(false);
+	const [gameOver, setGameOver] = useState(true);
+	const [gameWon, setGameWon] = useState(false);
+	const [bestScore, setBestScore] = useState(
+		JSON.parse(localStorage.getItem("best-score")) || 0
+	);
+
 	const menuMusicRef = useRef(null);
 	const inGameMusicRef = useRef(null);
 	const gameOverMusicRef = useRef(null);
 	const gameWonMusicRef = useRef(null);
-	const [score, setScore] = useState(0);
-	const [bestScore, setBestScore] = useState(JSON.parse(localStorage.getItem('best-score')) || 0);
 
 	const pickSound = () => {
 		if (toggleSounds) {
@@ -47,7 +53,7 @@ export default function App() {
 		setScore(score + 1);
 		if (score >= bestScore) {
 			setBestScore(bestScore + 1);
-			localStorage.setItem('best-score', JSON.stringify(bestScore + 1))
+			localStorage.setItem("best-score", JSON.stringify(bestScore + 1));
 		}
 	};
 
@@ -139,6 +145,26 @@ export default function App() {
 	return (
 		<div className="bg-[url('./src/assets/Chrono-bg.jpg')] w-full h-screen bg-cover bg-center">
 			<div className="w-full h-full backdrop-brightness-75 grid grid-rows-[80px_1fr_220px] grid-c">
+				<audio
+					ref={menuMusicRef}
+					src="./src/assets/audio/a-distant-promise.mp3"
+					loop
+				></audio>
+				<audio
+					ref={inGameMusicRef}
+					src="./src/assets/audio/peaceful-days.mp3"
+					loop
+				></audio>
+				<audio
+					ref={gameOverMusicRef}
+					src="./src/assets/audio/brink-of-time.mp3"
+					loop
+				></audio>
+				<audio
+					ref={gameWonMusicRef}
+					src="./src/assets/audio/courage-and-pride.mp3"
+					loop
+				></audio>
 				<Header
 					toggleMusic={toggleMusic}
 					setToggleMusic={setToggleMusic}
@@ -162,29 +188,24 @@ export default function App() {
 					shuffle={shuffle}
 					gameOverMusicRef={gameOverMusicRef}
 					gameWonMusicRef={gameWonMusicRef}
+					gameStart={gameStart}
+					setGameStart={setGameStart}
+					gameOver={gameOver}
+					setGameOver={setGameOver}
+					gameWon={gameWon}
+					setGameWon={setGameWon}
 				/>
-				<Footer score={score} bestScore={bestScore} />
+				<Footer
+					score={score}
+					bestScore={bestScore}
+					setChooseMode={setChooseMode}
+					setGameStart={setGameStart}
+					setGameWon={setGameWon}
+					setGameOver={setGameOver}
+					toggleSounds={toggleSounds}
+					notifStartSound={notifStartSound}
+				/>
 			</div>
-			<audio
-				ref={menuMusicRef}
-				src="./src/assets/audio/a-distant-promise.mp3"
-				loop
-			></audio>
-			<audio
-				ref={inGameMusicRef}
-				src="./src/assets/audio/peaceful-days.mp3"
-				loop
-			></audio>
-			<audio
-				ref={gameOverMusicRef}
-				src="./src/assets/audio/brink-of-time.mp3"
-				loop
-			></audio>
-			<audio
-				ref={gameWonMusicRef}
-				src="./src/assets/audio/courage-and-pride.mp3"
-				loop
-			></audio>
 		</div>
 	);
 }

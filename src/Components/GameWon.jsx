@@ -6,7 +6,7 @@ const buttonStyle = "hover:animate-pulse focus:animate-pulse hover:border-b-2 fo
 export default function GameWon({ handleSound }) {
 	return (
 		<div
-			className={`w-[450px] h-[300px] bg-white text-slate-950 flex flex-col justify-center items-center gap-3 rounded-md p-5 text-md font-press-start shadow-green-700 shadow-[10px_15px_25px] border-slate-950 border-8 border-double`}
+			className={`w-[450px] h-[300px] bg-white text-slate-950 flex flex-col justify-center items-center gap-3 rounded-md p-5 text-md font-press-start shadow-green-700 shadow-[10px_15px_25px] border-slate-950 border-8 border-double animate-fadeIn`}
 		>
 			<p className="text-center text-3xl border-2 p-5 border-slate-800 rounded-md">You Win!</p>
 			<p>Play Again?</p>
