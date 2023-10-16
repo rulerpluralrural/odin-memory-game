@@ -9,8 +9,10 @@ export default function App() {
 	const [chooseMode, setChooseMode] = useState("");
 	const [toggleSounds, setToggleSounds] = useState(true);
 	const [toggleMusic, setToggleMusic] = useState(false);
-	const menuMusicRef = useRef(null)
-	const inGameMusicRef = useRef(null)
+	const menuMusicRef = useRef(null);
+	const inGameMusicRef = useRef(null);
+	const gameOverMusicRef = useRef(null);
+	const gameWonMusicRef = useRef(null);
 	const [score, setScore] = useState(0);
 	const [bestScore, setBestScore] = useState(0);
 
@@ -18,6 +20,7 @@ export default function App() {
 		if (toggleSounds) {
 			const audio = new Audio("./src/assets/audio/sweep-sound.wav");
 			audio.currentTime = 0;
+			audio.volume = 0.7;
 			audio.play();
 		}
 	};
@@ -26,6 +29,7 @@ export default function App() {
 		if (toggleSounds) {
 			const audio = new Audio("./src/assets/audio/game-notif-sound.wav");
 			audio.currentTime = 0;
+			audio.volume = 0.7;
 			audio.play();
 		}
 	};
@@ -34,6 +38,7 @@ export default function App() {
 		if (toggleSounds) {
 			const audio = new Audio("./src/assets/audio/lose-sound.wav");
 			audio.currentTime = 0;
+			audio.volume = 0.7;
 			audio.play();
 		}
 	};
@@ -145,7 +150,7 @@ export default function App() {
 					toggleSounds={toggleSounds}
 					pickSound={pickSound}
 					notifStartSound={notifStartSound}
-					notifEndSound = {notifEndSound}
+					notifEndSound={notifEndSound}
 					menuMusicRef={menuMusicRef}
 					inGameMusicRef={inGameMusicRef}
 					gameMode={gameMode}
@@ -154,11 +159,31 @@ export default function App() {
 					setChooseMode={setChooseMode}
 					handleScore={handleScore}
 					shuffle={shuffle}
+					gameOverMusicRef={gameOverMusicRef}
+					gameWonMusicRef={gameWonMusicRef}
 				/>
-				<Footer />
+				<Footer score={score} bestScore={bestScore} />
 			</div>
-			<audio ref={menuMusicRef} src="./src/assets/audio/a-distant-promise.mp3" loop></audio>
-			<audio ref={inGameMusicRef} src="./src/assets/audio/peaceful-days.mp3" loop></audio>
+			<audio
+				ref={menuMusicRef}
+				src="./src/assets/audio/a-distant-promise.mp3"
+				loop
+			></audio>
+			<audio
+				ref={inGameMusicRef}
+				src="./src/assets/audio/peaceful-days.mp3"
+				loop
+			></audio>
+			<audio
+				ref={gameOverMusicRef}
+				src="./src/assets/audio/brink-of-time.mp3"
+				loop
+			></audio>
+			<audio
+				ref={gameWonMusicRef}
+				src="./src/assets/audio/courage-and-pride.mp3"
+				loop
+			></audio>
 		</div>
 	);
 }

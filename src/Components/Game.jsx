@@ -2,10 +2,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import Card from "./Cards";
 
-/**@param {{gameStart: boolean, toggleMusic: boolean, gameMode: Array, setGameMode: function, handleScore: function, shuffle: function, setGameOver: function, notifStartSound: function, notifEndSound: function, menuMusicRef: any}} props*/
+/**@param {{gameMode: Array, setGameMode: function, handleScore: function, shuffle: function, setGameOver: function, notifStartSound: function, notifEndSound: function, toggleSounds: boolean, gameOver: boolean,setGameWon: function}} props*/
 export default function Game({
-	gameStart,
-	toggleMusic,
 	gameMode,
 	setGameMode,
 	handleScore,
@@ -13,16 +11,18 @@ export default function Game({
 	setGameOver,
 	notifStartSound,
 	notifEndSound,
-	menuMusicRef
+	gameOver,
+	toggleSounds,
+	setGameWon
 }) {
-	const inGameMusicRef = useRef(null);
 	const [flip, setFlip] = useState(false)
 
 	const toggleCard = (index) => {
 		return () => {
 			if (gameMode[index].clicked === true) {
+				if (toggleSounds) notifEndSound()
+				setGameWon(false)
 				setGameOver(true);
-				return;
 			}
 			setFlip(true)
 			gameMode[index].clicked = true;	
@@ -36,21 +36,8 @@ export default function Game({
 		};
 	};
 
-	useEffect(() => {
-		if (!inGameMusicRef) return;
-
-		if (gameStart && toggleMusic) {
-			inGameMusicRef.current.volume = 0.7;
-			inGameMusicRef.current.play();
-		} else {
-			inGameMusicRef.current.currentTime = 0;
-			inGameMusicRef.current.pause();
-		}
-	}, [gameStart, toggleMusic]);
-
 	return (
-		<div>
-			<div className="cardBox flex justify-center items-center gap-5">
+			<div className={`flex justify-center items-center gap-5 ${gameOver && 'opacity-0 transition-opacity'}`}>
 				{gameMode.map((item, index) => {
 					return (
 						<Card
@@ -64,12 +51,6 @@ export default function Game({
 					);
 				})}
 			</div>
-			<audio
-				ref={inGameMusicRef}
-				src="./src/assets/audio/peaceful-days.mp3"
-				loop
-			></audio>
-		</div>
 	);
 }
 

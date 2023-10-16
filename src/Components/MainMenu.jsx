@@ -9,11 +9,11 @@ import PropTypes from "prop-types";
 
 const buttonStyle =
 	"text-[1rem] font-bold font-mono flex justify-center items-center gap-1 transition-colors";
-const arrowLeft = "animate-slideLeft text-sm flex justify-center items-center";
+const arrowLeft = "animate-slideLeft text-sm flex justify-center items-center	";
 const arrowRight =
 	"animate-slideRight text-sm flex items-center justify-center";
 const indicator =
-	"hover:before:h-0 hover:before:w-0 hover:before:border-x-8 before:border-x-transparent before:border-b-[16px] before:border-b-green-200 before:absolute before:rotate-[90deg] before:top-[2px] before:left-[-25px] before:animate-pulse";
+	"before:h-0 before:w-0 hover:before:border-x-8 focus:before:border-x-8 outline-none before:border-x-transparent before:border-b-[16px] before:border-b-green-200 before:absolute before:rotate-[90deg] before:top-[2px] before:left-[-25px] before:animate-pulse";
 
 /**@param {{chooseMode: string, setChooseMode: function, toggleSounds: boolean, pickSound: function, notifStartSound: function, toggleGameStart: function}} props*/
 export default function MainMenu({
@@ -26,9 +26,13 @@ export default function MainMenu({
 }) {
 
 	const togglePickMode = (e) => {
-		if (toggleSounds) pickSound();
+		if (toggleSounds) pickSound()
 		setChooseMode(e.target.value);
 	};
+
+	const handleSound = () => {
+		if (toggleSounds) pickSound()
+	}
 
 	const rickRoll = () => {
 		notifStartSound();
@@ -43,6 +47,7 @@ export default function MainMenu({
 					<div className="flex justify-around">
 						<button
 							value="easy"
+							tabIndex={-1}
 							className={`${buttonStyle} ${
 								chooseMode === "easy" && "text-green-300"
 							}`}
@@ -58,7 +63,8 @@ export default function MainMenu({
 						</button>
 						<button
 							value="medium"
-							className={`${buttonStyle} ${
+							tabIndex={-1}
+							className={`${buttonStyle}  ${
 								chooseMode === "medium" && "text-green-300"
 							}`}
 							onClick={togglePickMode}
@@ -79,6 +85,7 @@ export default function MainMenu({
 						</button>
 						<button
 							value="hard"
+							tabIndex={-1}
 							className={`${buttonStyle} ${
 								chooseMode === "hard" && "text-green-300"
 							}`}
@@ -104,12 +111,14 @@ export default function MainMenu({
 							className={`text-md relative ${indicator}`}
 							// @ts-ignore
 							onClick={toggleGameStart}
+							onFocus={handleSound}
 						>
 							Start Game
 						</button>
 						<button
 							className={`text-md relative ${indicator}`}
 							onClick={rickRoll}
+							onFocus={handleSound}
 						>
 							Quit Game
 						</button>

@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from "react";
 import MainMenu from "./MainMenu";
 import Game from "./Game";
-import GameOverMenu from "./GameOverMenu";
+import EndGame from "./EndGame";
 
-/**@param {{toggleMusic: boolean, toggleSounds: boolean, gameMode: array, setGameMode: function, chooseMode:string, setChooseMode:function, handleScore: function, shuffle: function, pickSound: function, notifStartSound: function, notifEndSound: function, menuMusicRef: any, inGameMusicRef: any}} props*/
+/**@param {{toggleMusic: boolean, toggleSounds: boolean, gameMode: array, setGameMode: function, chooseMode:string, setChooseMode:function, handleScore: function, shuffle: function, pickSound: function, notifStartSound: function, notifEndSound: function, menuMusicRef: any, inGameMusicRef: any, gameWonMusicRef: any, gameOverMusicRef: any}} props*/
 export default function Main({
 	toggleMusic,
 	toggleSounds,
@@ -19,13 +19,17 @@ export default function Main({
 	notifEndSound,
 	menuMusicRef,
 	inGameMusicRef,
+	gameOverMusicRef,
+	gameWonMusicRef
 }) {
 	const [gameStart, setGameStart] = useState(false);
 	const [gameOver, setGameOver] = useState(true);
+	const [gameWon, setGameWon] = useState(false);
+	const checkCards = gameMode.every((card) => card.clicked === true);
 
 	const toggleGameStart = () => {
 		if (chooseMode === "") return;
-		notifStartSound();
+		if (toggleSounds) notifStartSound();
 		setGameStart(true);
 		setGameOver(false);
 	};
@@ -36,19 +40,25 @@ export default function Main({
 			menuMusicRef.current.currentTime = 0;
 			menuMusicRef.current.volume = 0.5;
 			menuMusicRef.current.play();
-		} else {
+		} else if (gameStart || !toggleMusic) {
+			menuMusicRef.current.volume = 0;
 			menuMusicRef.current.pause();
 		}
 
 		if (!inGameMusicRef) return;
-		if (gameStart && toggleMusic) {
+		if (gameStart && toggleMusic && !gameOver) {
+			inGameMusicRef.current.volume = 0.6;
+			inGameMusicRef.current.play();
+		} else if (!gameStart || !toggleMusic || gameOver){
 			inGameMusicRef.current.currentTime = 0;
-			inGameMusicRef.current.volume = 0.5;
-			inGameMusicRef.current.play()
-		} else {
 			inGameMusicRef.current.pause();
 		}
-	}, [gameStart, toggleMusic, menuMusicRef, inGameMusicRef]);
+
+		if (checkCards) {
+			setGameWon(true)
+			setGameOver(true)
+		}
+	}, [gameStart, toggleMusic, menuMusicRef, inGameMusicRef, checkCards, gameOver]);
 
 	return (
 		<div className="flex items-center justify-center">
@@ -67,8 +77,6 @@ export default function Main({
 				/>
 			) : gameStart && !gameOver ? (
 				<Game
-					gameStart={gameStart}
-					toggleMusic={toggleMusic}
 					gameMode={gameMode}
 					setGameMode={setGameMode}
 					handleScore={handleScore}
@@ -76,11 +84,20 @@ export default function Main({
 					setGameOver={setGameOver}
 					notifStartSound={notifStartSound}
 					notifEndSound={notifEndSound}
-					menuMusicRef={menuMusicRef}
-					inGameMusicRef={inGameMusicRef}
+					gameOver={gameOver}
+					toggleSounds={toggleSounds}
+					setGameWon={setGameWon}
 				/>
 			) : (
-				<GameOverMenu />
+				<EndGame
+					gameOver={gameOver}
+					toggleSounds={toggleSounds}
+					toggleMusic={toggleMusic}
+					pickSound={pickSound}
+					gameWon={gameWon}
+					gameWonMusicRef={gameWonMusicRef}
+					gameOverMusicRef={gameOverMusicRef}
+				/>
 			)}
 		</div>
 	);
