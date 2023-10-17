@@ -16,12 +16,13 @@ export default function Card({ name, source, toggleCard, flip, chooseMode }) {
 			<Tilt
 			tiltReverse
 			reset
+			glareEnable
 			glarePosition="all"
 			glareMaxOpacity={0.4}
 			>
 				<div
 					style={flipStyle}
-					className={`relative flex flex-col text-center text-slate-700 font-press-start gap-1 rounded-md cursor-pointer border-8 border-double border-green-600 bg-white hover:scale-105 transition-transform ${
+					className={`relative flex flex-col text-center text-slate-700 font-press-start gap-1 rounded-md cursor-pointer border-8 border-double border-green-600 bg-white ${
 						chooseMode === "medium"
 							? "w-[160px] h-[300px] text-sm"
 							: chooseMode === "easy"
