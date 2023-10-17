@@ -39,8 +39,8 @@ export default function MainMenu({
 	};
 
 	return (
-		<div className="flex flex-col items-center justify-center h-full text-white text-center font-serif  font-press-start">
-			<div className="border-8 border-double border-green-400  w-[500px] h-64">
+		<div className="flex flex-col items-center justify-center h-full text-white text-center font-serif font-press-start animate-scale">
+			<div className="border-8 border-double border-green-400 w-[500px] h-64">
 				<div className=" backdrop-blur-sm h-full w-full rounded-sm flex flex-col justify-around p-5">
 					<h1 className="text-[1.2rem] tracking-wider">Choose Difficulty</h1>
 					<div className="flex justify-around">

@@ -40,7 +40,7 @@ export default function Game({
 
 	return (
 		<div
-			className={`grid ${chooseMode === "easy" ? "grid-cols-4" : chooseMode === "medium" ? "grid-cols-5" : 'grid-cols-8'} gap-5 animate-fadeIn`}	
+			className={`grid justify-center items-center grid-cols-2 md:grid-cols-5 ${chooseMode === "hard" ? "grid-cols-2 xl:grid-cols-8 lg:grid-cols-5 md:grid-cols-4" : chooseMode === "medium" ? 'grid-cols-2 lg:grid-cols-5 md:grid-cols-3' : ""} gap-5 animate-fadeIn`}	
 		>
 			{gameMode.map((item, index) => {
 				return (

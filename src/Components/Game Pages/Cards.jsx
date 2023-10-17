@@ -15,7 +15,7 @@ export default function Card({ name, source, toggleCard, flip, chooseMode }) {
 				<div
 					style={flipStyle}
 					className={`relative flex flex-col text-center text-slate-700 font-press-start gap-1 ${
-						chooseMode === "medium" ? "w-[150px] h-[260px] text-sm" : chooseMode === "easy" ? "w-48 h-96" : "w-[160px] h-[260px] text-[.8rem]"
+						chooseMode === "medium" ? "w-[160px] h-[300px] text-sm" : chooseMode === "easy" ? "w-48 h-96" : "w-[160px] h-[260px] text-[.8rem]"
 					} rounded-md cursor-pointer border-8 border-double border-green-600 bg-white ${
 						flip && "animate-flip pointer-events-none"
 					}`}

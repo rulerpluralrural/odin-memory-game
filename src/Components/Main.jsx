@@ -64,7 +64,7 @@ export default function Main({
 	}, [gameStart, toggleMusic, menuMusicRef, inGameMusicRef, checkCards, gameOver]);
 
 	return (
-		<div className="flex items-center justify-center animate-scale">
+		<div className="flex items-center justify-center animate-scale flex-grow">
 			{!gameStart ? (
 				<MainMenu
 					toggleSounds={toggleSounds}

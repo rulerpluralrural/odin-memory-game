@@ -56,6 +56,8 @@ export default function App() {
 		setGameWon(false)
 		setGameStart(false)
 		setScore(0)
+		gameOverMusicRef.current.currentTime = 0
+		gameWonMusicRef.current.currentTime = 0
 		gameOverMusicRef.current.pause()
 		gameWonMusicRef.current.pause()
 	}
@@ -93,6 +95,11 @@ export default function App() {
 				{
 					name: "Frog",
 					source: "./src/assets/characters/frog.jpg",
+					clicked: false,
+				},
+				{
+					name: "Robo",
+					source: "./src/assets/characters/robo.jpg",
 					clicked: false,
 				},
 			]);
@@ -237,10 +244,9 @@ export default function App() {
 
 	return (
 		<div
-			className={`bg-[url('./src/assets/Chrono-bg.jpg')] w-full h-screen bg-cover bg-center`}
+			className={`bg-[url('./src/assets/Chrono-bg.jpg')] min-h-screen h-auto w-full bg-cover bg-center`}
 		>
-			<div className="w-full h-full backdrop-brightness-75 grid grid-rows-[80px_1fr_220px] grid-c">
-				<audio
+			<audio
 					ref={menuMusicRef}
 					src="./src/assets/audio/a-distant-promise.mp3"
 					loop
@@ -252,7 +258,7 @@ export default function App() {
 				></audio>
 				<audio
 					ref={gameOverMusicRef}
-					src="./src/assets/audio/brink-of-time.mp3"
+					src="./src/assets/audio/brink-of-time.mp3"	
 					loop
 				></audio>
 				<audio
@@ -260,6 +266,7 @@ export default function App() {
 					src="./src/assets/audio/courage-and-pride.mp3"
 					loop
 				></audio>
+			<div className="w-full min-h-screen backdrop-brightness-75 flex flex-col-reverse gap-5 p-5">
 				<Header
 					toggleMusic={toggleMusic}
 					setToggleMusic={setToggleMusic}
