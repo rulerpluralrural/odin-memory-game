@@ -3,6 +3,9 @@ import React, { useEffect, useRef, useState } from "react";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Main from "./Components/Main";
+import pickAudio from './assets/audio/sweep-sound.wav'
+import loseAudio from './assets/audio/lose-sound.mp3'
+import notifAudio from './assets/audio/game-notif-sound.wav'
 
 export default function App() {
 	const [gameMode, setGameMode] = useState([]);
@@ -24,7 +27,7 @@ export default function App() {
 
 	const pickSound = () => {
 		if (toggleSounds) {
-			const audio = new Audio("./src/assets/audio/sweep-sound.wav");
+			const audio = new Audio(pickAudio);
 			audio.currentTime = 0;
 			audio.volume = 0.7;
 			audio.play();
@@ -33,7 +36,7 @@ export default function App() {
 
 	const notifStartSound = () => {
 		if (toggleSounds) {
-			const audio = new Audio("./src/assets/audio/game-notif-sound.wav");
+			const audio = new Audio(notifAudio)
 			audio.currentTime = 0;
 			audio.volume = 0.7;
 			audio.play();
@@ -42,7 +45,7 @@ export default function App() {
 
 	const notifEndSound = () => {
 		if (toggleSounds) {
-			const audio = new Audio("./src/assets/audio/lose-sound.mp3");
+			const audio = new Audio(loseAudio);
 			audio.currentTime = 0;
 			audio.volume = 0.7;
 			audio.play();
@@ -79,27 +82,27 @@ export default function App() {
 			setGameMode([
 				{
 					name: "Chrono",
-					source: "./src/assets/characters/chrono.jpg",
+					source: "/assets/characters/chrono.jpg",
 					clicked: false,
 				},
 				{
 					name: "Marle",
-					source: "./src/assets/characters/marle.webp",
+					source: "/assets/characters/marle.webp",
 					clicked: false,
 				},
 				{
 					name: "Lucca",
-					source: "./src/assets/characters/lucca.webp",
+					source: "/assets/characters/lucca.webp",
 					clicked: false,
 				},
 				{
 					name: "Frog",
-					source: "./src/assets/characters/frog.jpg",
+					source: "/assets/characters/frog.jpg",
 					clicked: false,
 				},
 				{
 					name: "Robo",
-					source: "./src/assets/characters/robo.jpg",
+					source: "/assets/characters/robo.jpg",
 					clicked: false,
 				},
 			]);
@@ -107,52 +110,52 @@ export default function App() {
 			setGameMode([
 				{
 					name: "Chrono",
-					source: "./src/assets/characters/chrono.jpg",
+					source: "/assets/characters/chrono.jpg",
 					clicked: false,
 				},
 				{
 					name: "Marle",
-					source: "./src/assets/characters/marle.webp",
+					source: "/assets/characters/marle.webp",
 					clicked: false,
 				},
 				{
 					name: "Lucca",
-					source: "./src/assets/characters/lucca.webp",
+					source: "/assets/characters/lucca.webp",
 					clicked: false,
 				},
 				{
 					name: "Frog",
-					source: "./src/assets/characters/frog.jpg",
+					source: "/assets/characters/frog.jpg",
 					clicked: false,
 				},
 				{
 					name: "Ayla",
-					source: "./src/assets/characters/ayla.jpg",
+					source: "/assets/characters/ayla.jpg",
 					clicked: false,
 				},
 				{
 					name: "Magus",
-					source: "./src/assets/characters/magus.webp",
+					source: "/assets/characters/magus.webp",
 					clicked: false,
 				},
 				{
 					name: "Robo",
-					source: "./src/assets/characters/robo.jpg",
+					source: "/assets/characters/robo.jpg",
 					clicked: false,
 				},
 				{
 					name: "Schala",
-					source: "./src/assets/characters/schala.jpg",
+					source: "/assets/characters/schala.jpg",
 					clicked: false,
 				},
 				{
 					name: "Ozzie",
-					source: "./src/assets/characters/ozzie.jpg",
+					source: "/assets/characters/ozzie.jpg",
 					clicked: false,
 				},
 				{
 					name: "Kino",
-					source: "./src/assets/characters/kino.jpg",
+					source: "/assets/characters/kino.jpg",
 					clicked: false,
 				},
 			]);
@@ -160,82 +163,82 @@ export default function App() {
 			setGameMode([
 				{
 					name: "Chrono",
-					source: "./src/assets/characters/chrono.jpg",
+					source: "/assets/characters/chrono.jpg",
 					clicked: false,
 				},
 				{
 					name: "Marle",
-					source: "./src/assets/characters/marle.webp",
+					source: "/assets/characters/marle.webp",
 					clicked: false,
 				},
 				{
 					name: "Lucca",
-					source: "./src/assets/characters/lucca.webp",
+					source: "/assets/characters/lucca.webp",
 					clicked: false,
 				},
 				{
 					name: "Frog",
-					source: "./src/assets/characters/frog.jpg",
+					source: "/assets/characters/frog.jpg",
 					clicked: false,
 				},
 				{
 					name: "Ayla",
-					source: "./src/assets/characters/ayla.jpg",
+					source: "/assets/characters/ayla.jpg",
 					clicked: false,
 				},
 				{
 					name: "Magus",
-					source: "./src/assets/characters/magus.webp",
+					source: "/assets/characters/magus.webp",
 					clicked: false,
 				},
 				{
 					name: "Robo",
-					source: "./src/assets/characters/robo.jpg",
+					source: "/assets/characters/robo.jpg",
 					clicked: false,
 				},
 				{
 					name: "Schala",
-					source: "./src/assets/characters/schala.jpg",
+					source: "/assets/characters/schala.jpg",
 					clicked: false,
 				},
 				{
 					name: "Ozzie",
-					source: "./src/assets/characters/ozzie.jpg",
+					source: "/assets/characters/ozzie.jpg",
 					clicked: false,
 				},
 				{
 					name: "Kino",
-					source: "./src/assets/characters/kino.jpg",
+					source: "/assets/characters/kino.jpg",
 					clicked: false,
 				},
 				{
 					name: "Azala",
-					source: "./src/assets/characters/azala.jpg",
+					source: "/assets/characters/azala.jpg",
 					clicked: false,
 				},
 				{
 					name: "Belthasar",
-					source: "./src/assets/characters/belthasar.jpg",
+					source: "/assets/characters/belthasar.jpg",
 					clicked: false,
 				},
 				{
 					name: "Dalton",
-					source: "./src/assets/characters/dalton.jpg",
+					source: "/assets/characters/dalton.jpg",
 					clicked: false,
 				},
 				{
 					name: "Melchior",
-					source: "./src/assets/characters/melchior.jpg",
+					source: "/assets/characters/melchior.jpg",
 					clicked: false,
 				},
 				{
 					name: "Tata",
-					source: "./src/assets/characters/tata.jpg",
+					source: "/assets/characters/tata.jpg",
 					clicked: false,
 				},
 				{
 					name: "Gaspar",
-					source: "./src/assets/characters/gaspar.jpg",
+					source: "/assets/characters/gaspar.jpg",
 					clicked: false,
 				},
 			]);
@@ -244,26 +247,26 @@ export default function App() {
 
 	return (
 		<div
-			className={`bg-[url('./src/assets/Chrono-bg.jpg')] min-h-screen h-auto w-full bg-cover bg-center`}
+			className={`bg-[url('/assets/Chrono-bg.jpg')] min-h-screen h-auto w-full bg-cover bg-center`}
 		>
 			<audio
 					ref={menuMusicRef}
-					src="./src/assets/audio/a-distant-promise.mp3"
+					src="/assets/audio/a-distant-promise.mp3"
 					loop
 				></audio>
 				<audio
 					ref={inGameMusicRef}
-					src="./src/assets/audio/peaceful-days.mp3"
+					src="/assets/audio/peaceful-days.mp3"
 					loop
 				></audio>
 				<audio
 					ref={gameOverMusicRef}
-					src="./src/assets/audio/brink-of-time.mp3"	
+					src="/assets/audio/brink-of-time.mp3"	
 					loop
 				></audio>
 				<audio
 					ref={gameWonMusicRef}
-					src="./src/assets/audio/courage-and-pride.mp3"
+					src="/assets/audio/courage-and-pride.mp3"
 					loop
 				></audio>
 			<div className="w-full min-h-screen backdrop-brightness-75 flex flex-col-reverse gap-5 p-5">
