@@ -80,7 +80,7 @@ export default function Header({
 					} transition-opacity flex gap-2 items-center`}
 				>
 					<img
-						src="./src/assets/characters/luca.png"
+						src="/assets/characters/luca.png"
 						alt="luca-img"
 						className="sm:h-[150px] sm:w-[150px] h-[100px] w-[100px]object-center object-contain animate-bounce"
 					/>

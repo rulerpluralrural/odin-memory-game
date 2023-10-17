@@ -50,7 +50,7 @@ export default function Card({ name, source, toggleCard, flip, chooseMode }) {
 								: "w-[160px] h-[260px]"
 						}`}
 					>
-						<img src="./src/assets/card-back.png" />
+						<img src="/assets/card-back.png" />
 					</div>
 				</div>
 			</Tilt>
